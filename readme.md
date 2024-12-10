@@ -20,11 +20,11 @@ We need k number of hash functions to calculate the hashes for a given input. Wh
 ### Example
 
 Suppose we want to enter “geeks” in the filter, we are using 3 hash functions and a bit array of length 10, all set to 0 initially. First, we’ll calculate the hashes as follows:
-
-- h1(“geeks”) % 10 = 1
-- h2(“geeks”) % 10 = 4
-- h3(“geeks”) % 10 = 7
-
+```
+h1(“geeks”) % 10 = 1
+h2(“geeks”) % 10 = 4
+h3(“geeks”) % 10 = 7
+```
 Now we will set the bits at indices 1, 4, and 7 to 1:
 
 ![Bloom Filter with "geeks"](assets/img_1.png)
@@ -34,11 +34,11 @@ Now if we want to check if “geeks” is present in the filter or not, we’ll 
 ## False Positive in Bloom Filters
 
 The question is why we said “probably present”, why this uncertainty. Let’s understand this with an example. Suppose we want to check whether “cat” is present or not. We’ll calculate hashes using h1, h2, and h3:
-
-- h1(“cat”) % 10 = 1
-- h2(“cat”) % 10 = 3
-- h3(“cat”) % 10 = 7
-
+```
+h1(“cat”) % 10 = 1
+h2(“cat”) % 10 = 3
+h3(“cat”) % 10 = 7
+```
 If we check the bit array, bits at these indices are set to 1, but we know that “cat” was never added to the filter. Bit at index 1 and 7 was set when we added “geeks” and bit 3 was set when we added “nerd”.
 
 So, because bits at calculated indices are already set by some other item, the Bloom filter erroneously claims that “cat” is present, generating a false positive result. Depending on the application, it could be a huge downside or relatively okay.
